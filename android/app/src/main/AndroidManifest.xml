@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fluttery_filmy">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="fluttery_filmy"
         android:name="${applicationName}"

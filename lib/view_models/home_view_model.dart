@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
@@ -8,6 +9,7 @@ class HomeViewModel extends ChangeNotifier {
     initialPage: 0,
     keepPage: true,
   );
+  TextEditingController searchController = TextEditingController();
 
   Widget buildPageView() {
     return PageView(
@@ -18,6 +20,8 @@ class HomeViewModel extends ChangeNotifier {
       children: Constants.pages,
     );
   }
+
+
 
   void pageChanged(int index) {
     bottomSelectedIndex = index;

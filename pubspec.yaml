@@ -17,6 +17,8 @@ dependencies:
   http: ^0.13.5
   shimmer: ^2.0.0
   flutter_rating_bar: ^4.0.1
+  custom_pop_up_menu: ^1.2.4
+  connectivity_plus: ^2.3.6+1
 
 dev_dependencies:
   flutter_test:
@@ -29,7 +31,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/
 
 
   # fonts:

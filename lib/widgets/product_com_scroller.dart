@@ -7,31 +7,6 @@ class ProductionCompaniesScroller extends StatelessWidget {
 
   final List<ProductionCompanies> productionCompanies;
 
-  Widget _buildCompanies(BuildContext context, int index) {
-    var companies = productionCompanies[index];
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Column(
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              companies.logoPath != null
-                  ? "https://image.tmdb.org/t/p/w500/${companies.logoPath}"
-                  : "https://ibb.co/cma2t8",
-            ),
-            radius: 35.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              companies.name??"Undefined",
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -45,13 +20,35 @@ class ProductionCompaniesScroller extends StatelessWidget {
             style: textTheme.headlineMedium!.copyWith(fontSize: 18.0),
           ),
         ),
-        SizedBox.fromSize(
-          size: const Size.fromHeight(120.0),
-          child: ListView.builder(
-            itemCount: productionCompanies.length,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.only(top: 12.0, left: 20.0),
-            itemBuilder: _buildCompanies,
+        Container(
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.red, width: 2)),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(70),
+                  border: Border.all(color: const Color(0xFF8e44ad), width: 3),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(70),
+                    child: Image.network(
+                      'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+                      fit: BoxFit.cover,
+                      width: 70,
+                      height: 70,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(productionCompanies.length.toString()),
+            ],
           ),
         ),
       ],

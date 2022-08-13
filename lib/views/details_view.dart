@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/view_models/detail_view_model.dart';
+import 'package:fluttery_filmy/views/connection_error_view.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/movie_detail_header.dart';
@@ -32,9 +33,13 @@ class _DetailsViewState extends State<DetailsView> {
               detailViewModel.uploadMovieDetails(widget.movieId);
               detailViewModel.update();
             });
-            return const Center(child: CircularProgressIndicator());
+            return Container(
+              color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()));
           case DetailState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return Container(
+              color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()));
           case DetailState.done:
             return Scaffold(
               body: Container(
@@ -42,10 +47,10 @@ class _DetailsViewState extends State<DetailsView> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      MovieDetailHeader(detailViewModel.detailModel),
+                      MovieDetailHeader(detailViewModel.detail),
                       Padding(
                         padding: const EdgeInsets.all(0.0),
-                        child: StoryLine(detailViewModel.detailModel.overview ??
+                        child: StoryLine(detailViewModel.detail.overview ??
                             "There is no any overview about this movie"),
                       ),
                       Padding(
@@ -53,8 +58,11 @@ class _DetailsViewState extends State<DetailsView> {
                           top: 20.0,
                           bottom: 50.0,
                         ),
-                        child: ProductionCompaniesScroller(
-                            detailViewModel.detailModel.productionCompanies!),
+                        child: Container(
+                          color: Colors.blue,
+                          // child: ProductionCompaniesScroller(
+                          //     detailViewModel.detail.productionCompanies!),
+                        ),
                       ),
                     ],
                   ),
@@ -62,7 +70,7 @@ class _DetailsViewState extends State<DetailsView> {
               ),
             );
           case DetailState.error:
-            return const Center(child: Text('Something went wrong'));
+            return ConnectionErrorView(pageIndex: 3, movieId: widget.movieId,);
           default:
         }
         return const Center(child: CircularProgressIndicator());
@@ -70,33 +78,3 @@ class _DetailsViewState extends State<DetailsView> {
     );
   }
 }
-
-
-
-// import 'package:flutter/material.dart';
-
-// import '../models/detail_model.dart';
-// import '../widgets/movie_detail_header.dart';
-// import '../widgets/story_line.dart';
-
-// class DetailView extends StatelessWidget {
-//   const DetailView({required this.movie, Key? key}) : super(key: key);
-//   final DetailModel movie;
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-    // return Container(
-    //   color: Colors.white,
-    //   child: SingleChildScrollView(
-    //     child: Column(
-    //       children: [
-    //         // MovieDetailHeader(movie),
-    //         StoryLine(
-    //             movie.overview ?? "There is no any overview about this movie"),
-    //         // OtherDetails(movie),
-    //       ],
-    //     ),
-    //   ),
-    // );
-//   }
-// }

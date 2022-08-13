@@ -3,6 +3,7 @@ import 'package:fluttery_filmy/view_models/upcoming_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/upcoming_movie_grid.dart';
+import 'connection_error_view.dart';
 
 class UpcomingView extends StatefulWidget {
   const UpcomingView({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _UpcomingViewState extends State<UpcomingView> {
               ),
             );
           case UpcomingState.error:
-            return const Center(child: Text('Something went wrong'));
+            return const ConnectionErrorView(pageIndex: 1,);
           default:
         }
         return const Center(child: CircularProgressIndicator());

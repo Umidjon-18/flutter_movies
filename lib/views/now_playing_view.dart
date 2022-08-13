@@ -3,6 +3,7 @@ import 'package:fluttery_filmy/widgets/now_playing_movie_grid.dart';
 import 'package:provider/provider.dart';
 
 import '../view_models/now_playing_view_model.dart';
+import 'connection_error_view.dart';
 
 class NowPlayingView extends StatefulWidget {
   const NowPlayingView({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _NowPlayingViewState extends State<NowPlayingView> {
               ),
             );
           case NowPlayingState.error:
-            return const Center(child: Text('Something went wrong'));
+            return const ConnectionErrorView(pageIndex: 0,);
           default:
         }
         return const Center(child: CircularProgressIndicator());

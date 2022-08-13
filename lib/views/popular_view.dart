@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../view_models/popular_view_model.dart';
 import '../widgets/popular_movie_grid.dart';
+import 'connection_error_view.dart';
 
 class PopularView extends StatefulWidget {
   const PopularView({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _PopularViewState extends State<PopularView> {
               ),
             );
           case PopularState.error:
-            return const Center(child: Text('Something went wrong'));
+            return const ConnectionErrorView(pageIndex: 2,);
           default:
         }
         return const Center(child: CircularProgressIndicator());
