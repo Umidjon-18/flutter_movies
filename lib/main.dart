@@ -7,6 +7,7 @@ import 'view_models/detail_view_model.dart';
 import 'view_models/now_playing_view_model.dart';
 import 'view_models/popular_view_model.dart';
 import 'view_models/upcoming_view_model.dart';
+import 'view_models/youtube_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UpcomingViewModel()),
         ChangeNotifierProvider(create: (_) => PopularViewModel()),
         ChangeNotifierProvider(create: (_) => DetailViewModel()),
+        ChangeNotifierProvider(create: (_) => YoutubeViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

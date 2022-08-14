@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/view_models/detail_view_model.dart';
 import 'package:fluttery_filmy/views/connection_error_view.dart';
+import 'package:fluttery_filmy/widgets/additional_details.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/movie_detail_header.dart';
@@ -34,12 +35,12 @@ class _DetailsViewState extends State<DetailsView> {
               detailViewModel.update();
             });
             return Container(
-              color: Colors.white,
-              child: const Center(child: CircularProgressIndicator()));
+                color: Colors.white,
+                child: const Center(child: CircularProgressIndicator()));
           case DetailState.loading:
             return Container(
-              color: Colors.white,
-              child: const Center(child: CircularProgressIndicator()));
+                color: Colors.white,
+                child: const Center(child: CircularProgressIndicator()));
           case DetailState.done:
             return Scaffold(
               body: Container(
@@ -56,21 +57,22 @@ class _DetailsViewState extends State<DetailsView> {
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 20.0,
-                          bottom: 50.0,
+                          bottom: 10.0,
                         ),
-                        child: Container(
-                          color: Colors.blue,
-                          // child: ProductionCompaniesScroller(
-                          //     detailViewModel.detail.productionCompanies!),
-                        ),
+                        child: ProductionCompaniesScroller(
+                            detailViewModel.detail.productionCompanies!),
                       ),
+                      AdditionalDetails(detailViewModel.detail),
                     ],
                   ),
                 ),
               ),
             );
           case DetailState.error:
-            return ConnectionErrorView(pageIndex: 3, movieId: widget.movieId,);
+            return ConnectionErrorView(
+              pageIndex: 3,
+              movieId: widget.movieId,
+            );
           default:
         }
         return const Center(child: CircularProgressIndicator());

@@ -1,45 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttery_filmy/models/detail_model.dart';
 
 class RatingInformation extends StatelessWidget {
-  RatingInformation(this.movie);
+  const RatingInformation(this.movie, {Key? key}) : super(key: key);
 
   final DetailModel movie;
 
-  _buildRatingBar(ThemeData theme) {
-    var stars = <Widget>[];
-    var rate = movie.voteAverage! / 2;
-    for (var i = 0; i < 5; ++i) {
-      var color = i <= rate ? theme.colorScheme.secondary : Colors.black12;
-      var star =   Icon(
-        Icons.star,
-        color: color,
-      );
-
-      stars.add(star);
-    }
-
-    return   Row(children: stars);
-  }
-
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
     var ratingCaptionStyle = textTheme.caption!.copyWith(color: Colors.black45);
 
-    var numericRating =   Column(
+    var numericRating = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-          Text(
-          movie.voteAverage.toString(),
-          style: textTheme.titleMedium!
-              .copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
+        Text(
+          movie.voteAverage!.toStringAsFixed(2),
+          style: textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.w400,
+              color: theme.colorScheme.secondary,
+              fontSize: 26),
         ),
-          Padding(
+        Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child:   Text(
+          child: Text(
             'Ratings',
             style: ratingCaptionStyle,
           ),
@@ -47,14 +35,26 @@ class RatingInformation extends StatelessWidget {
       ],
     );
 
-    var starRating =   Column(
+    var starRating = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        _buildRatingBar(theme),
-          Padding(
+        RatingBar.builder(
+          initialRating: movie.voteAverage!.truncate() / 2,
+          minRating: 1,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemSize: size.width * 0.06,
+          itemBuilder: (context, _) => const Icon(
+            Icons.star,
+            color: Colors.blue,
+          ),
+          onRatingUpdate: (rating) {},
+        ),
+        Padding(
           padding: const EdgeInsets.only(top: 4.0, left: 4.0),
-          child:   Text(
+          child: Text(
             'Grade now',
             style: ratingCaptionStyle,
           ),
@@ -62,11 +62,11 @@ class RatingInformation extends StatelessWidget {
       ],
     );
 
-    return   Row(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         numericRating,
-          Padding(
+        Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: starRating,
         )

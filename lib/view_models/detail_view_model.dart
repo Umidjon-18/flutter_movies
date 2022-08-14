@@ -19,7 +19,19 @@ class DetailViewModel extends ChangeNotifier {
       state = DetailState.loading;
       notifyListeners();
       var request = await MovieDetailService.uploadMovieDetail(movieId);
+      var genres = List.generate(request['genres'].length,
+          (index) => Genres.fromJson(request['genres'][index]));
+      var productionCompanies = List.generate(request['production_companies'].length,
+          (index) => ProductionCompanies.fromJson(request['production_companies'][index]));
+      var productionCountries = List.generate(request['production_countries'].length,
+          (index) => ProductionCountries.fromJson(request['production_countries'][index]));
+      var spokenLanguages = List.generate(request['spoken_languages'].length,
+          (index) => SpokenLanguages.fromJson(request['spoken_languages'][index]));
       detail = DetailModel.fromJson(request);
+      detail.genres = genres;
+      detail.productionCompanies = productionCompanies;
+      detail.productionCountries = productionCountries;
+      detail.spokenLanguages = spokenLanguages;
       state = DetailState.done;
       notifyListeners();
     } else {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttery_filmy/models/now_playing_movie_model.dart';
+import 'package:fluttery_filmy/models/now_playing_model.dart';
 import 'package:fluttery_filmy/services/network_services/check_connection.dart';
 import 'package:fluttery_filmy/services/network_services/now_playing.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +12,7 @@ enum NowPlayingState {
 }
 
 class NowPlayingViewModel extends ChangeNotifier {
+  ScrollController scrollController = ScrollController();
   NowPlayingState state = NowPlayingState.init;
   List<NowPlayingMovieModel> moviesList = [];
   List<NowPlayingMovieModel> moviesListCopy = [];

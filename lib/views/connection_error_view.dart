@@ -3,6 +3,7 @@ import 'package:fluttery_filmy/view_models/detail_view_model.dart';
 import 'package:fluttery_filmy/view_models/now_playing_view_model.dart';
 import 'package:fluttery_filmy/view_models/popular_view_model.dart';
 import 'package:fluttery_filmy/view_models/upcoming_view_model.dart';
+import 'package:fluttery_filmy/view_models/youtube_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ConnectionErrorView extends StatefulWidget {
@@ -17,10 +18,10 @@ class ConnectionErrorView extends StatefulWidget {
 class _ConnectionErrorViewState extends State<ConnectionErrorView> {
   @override
   Widget build(BuildContext context) {
-    return Consumer4<NowPlayingViewModel, UpcomingViewModel, PopularViewModel,
-        DetailViewModel>(
+    return Consumer5<NowPlayingViewModel, UpcomingViewModel, PopularViewModel,
+        DetailViewModel, YoutubeViewModel>(
       builder:
-          (BuildContext context, value, value2, value3, value4, Widget? child) {
+          (BuildContext context, value, value2, value3, value4, value5, Widget? child) {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(
@@ -61,6 +62,9 @@ class _ConnectionErrorViewState extends State<ConnectionErrorView> {
                         break;
                       case 3:
                         value4.uploadMovieDetails(widget.movieId.toString());
+                        break;
+                      case 4:
+                        value5.uploadYoutubeVideos(widget.movieId.toString());
                         break;
                       default:
                     }

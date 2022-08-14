@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/models/detail_model.dart';
+import 'package:fluttery_filmy/utils/routes.dart';
 
 import 'arc_banner_image.dart';
 import 'poster.dart';
 import 'rating_info.dart';
 
 class MovieDetailHeader extends StatelessWidget {
-  MovieDetailHeader(this.movie);
+  const MovieDetailHeader(this.movie, {Key? key}) : super(key: key);
 
   final DetailModel movie;
 
@@ -27,11 +28,12 @@ class MovieDetailHeader extends StatelessWidget {
     var movieInformation = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        Container(
           padding: const EdgeInsets.only(top: 16.0),
           child: Text(
             movie.originalTitle ?? "",
-            style: textTheme.titleMedium,
+            style: textTheme.titleMedium!
+                .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
@@ -74,8 +76,49 @@ class MovieDetailHeader extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                  ),
                   child: movieInformation,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 32.0,
+          left: 16.0,
+          right: 16.0,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 150.0, left: 30),
+                child: Center(
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.youtubePage,
+                          arguments: {
+                            "movieId": movie.id.toString(),
+                            "movieName": movie.originalTitle,
+                          },
+                        );
+                      },
+                      icon: Icon(
+                        Icons.play_circle_outline_outlined,
+                        color: Colors.grey[300],
+                        size: 50,
+                      )),
+                ),
+              ),
+              const Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 16.0,
+                  ),
                 ),
               ),
             ],

@@ -31,7 +31,7 @@ class _NowPlayingViewState extends State<NowPlayingView> {
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: NowPlayingGrid(
-                  moviesList: nowPlayingViewModel.moviesList,
+                  moviesList: nowPlayingViewModel.moviesList,  nowPlayingViewModel:nowPlayingViewModel
                 ),
               ),
             );

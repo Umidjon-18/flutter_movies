@@ -15,10 +15,11 @@ dependencies:
   cached_network_image: ^3.2.1
   intl: ^0.17.0
   http: ^0.13.5
-  shimmer: ^2.0.0
   flutter_rating_bar: ^4.0.1
-  custom_pop_up_menu: ^1.2.4
   connectivity_plus: ^2.3.6+1
+  url_launcher: ^6.1.5
+  flutter_font_icons: ^2.2.5
+  youtube_player_flutter: ^8.1.0
 
 dev_dependencies:
   flutter_test:
