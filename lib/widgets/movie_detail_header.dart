@@ -57,7 +57,9 @@ class MovieDetailHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 240.0),
           child: ArcBannerImage(
-              "https://image.tmdb.org/t/p/w500/${movie.backdropPath}", null),
+              "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+              movie.id.toString(),
+              null),
         ),
         Positioned(
           bottom: 32.0,
@@ -86,32 +88,33 @@ class MovieDetailHeader extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 32.0,
-          left: 16.0,
+          bottom: 25.0,
+          left: 25.0,
           right: 16.0,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 150.0, left: 30),
-                child: Center(
-                  child: IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.youtubePage,
-                          arguments: {
-                            "movieId": movie.id.toString(),
-                            "movieName": movie.originalTitle,
-                          },
-                        );
-                      },
-                      icon: Icon(
-                        Icons.play_circle_outline_outlined,
-                        color: Colors.grey[300],
-                        size: 50,
-                      )),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.youtubePage,
+                    arguments: {
+                      "movieId": movie.id.toString(),
+                      "movieName": movie.originalTitle,
+                    },
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(bottom: 150.0, left: 30),
+                  child: Center(
+                    child: Icon(
+                      Icons.play_circle_outline_outlined,
+                      color: Colors.black87,
+                      size: 50,
+                    ),
+                  ),
                 ),
               ),
               const Expanded(

@@ -20,8 +20,8 @@ class _ConnectionErrorViewState extends State<ConnectionErrorView> {
   Widget build(BuildContext context) {
     return Consumer5<NowPlayingViewModel, UpcomingViewModel, PopularViewModel,
         DetailViewModel, YoutubeViewModel>(
-      builder:
-          (BuildContext context, value, value2, value3, value4, value5, Widget? child) {
+      builder: (BuildContext context, value, value2, value3, value4, value5,
+          Widget? child) {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(

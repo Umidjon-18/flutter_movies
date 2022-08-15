@@ -6,10 +6,9 @@ import '../../utils/constants.dart';
 
 class PopularService {
   // This method gets now playing movies data from API
-  Future getPopularMovies() async {
-    const String url =
-        '${Constants.baseUrl}/3/movie/popular?api_key=${Constants.myApiKey}&page=1';
-
+  Future getPopularMovies(randomPage) async {
+    final String url =
+        '${Constants.baseUrl}/3/movie/popular?api_key=${Constants.myApiKey}&page=$randomPage';
     try {
       final response = await get(Uri.parse(url));
       switch (response.statusCode) {

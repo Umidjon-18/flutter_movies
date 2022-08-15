@@ -5,8 +5,8 @@ import 'package:fluttery_filmy/views/youtube_view.dart';
 import '../views/home_view.dart';
 
 class Routes {
-    static const String detailPage = '/detailPage';
-    static const String youtubePage = '/youtubePage';
+  static const String detailPage = '/detailPage';
+  static const String youtubePage = '/youtubePage';
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     try {
       Map<String, dynamic>? args =
@@ -22,7 +22,7 @@ class Routes {
               movieId: args?['movieId'],
             ),
           );
-          case youtubePage:
+        case youtubePage:
           return MaterialPageRoute(
             builder: (
               context,

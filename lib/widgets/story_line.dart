@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StoryLine extends StatelessWidget {
-  StoryLine(this.storyline);
+  const StoryLine(this.storyline, {Key? key}) : super(key: key);
 
   final String storyline;
 
@@ -10,41 +10,41 @@ class StoryLine extends StatelessWidget {
     var theme = Theme.of(context);
     var textTheme = Theme.of(context).textTheme;
 
-    return   Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-          Padding(
+        Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 16.0),
-          child:   Text(
+          child: Text(
             'Overview',
             style: textTheme.headlineMedium!.copyWith(fontSize: 18.0),
           ),
         ),
-          Padding(
+        Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
-          child:   Text(
+          child: Text(
             storyline,
-            style:
-                textTheme.bodyText1!.copyWith(color: Colors.black45, fontSize: 16.0),
+            style: textTheme.bodyText1!
+                .copyWith(color: Colors.grey, fontSize: 16.0),
           ),
         ),
         // No expand-collapse in this tutorial, we just slap the "more"
         // button below the text like in the mockup.
-          Padding(
+        Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-          child:   Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-                Text(
+              Text(
                 'more',
                 style: textTheme.bodyText1!
-                    .copyWith(fontSize: 16.0, color: theme.colorScheme.secondary),
+                    .copyWith(fontSize: 16.0, color: theme.colorScheme.primary),
               ),
-                Icon(
+              Icon(
                 Icons.keyboard_arrow_down,
                 size: 18.0,
-                color: theme.colorScheme.secondary,
+                color: theme.colorScheme.primary,
               ),
             ],
           ),

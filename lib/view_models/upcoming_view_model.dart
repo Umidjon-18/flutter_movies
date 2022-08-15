@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:fluttery_filmy/services/network_services/now_playing.dart';
 import 'package:intl/intl.dart';
 
 import '../models/upcoming_model.dart';
 import '../services/network_services/check_connection.dart';
+import '../services/network_services/upcoming.dart';
 
 enum UpcomingState {
   init,
@@ -16,12 +18,17 @@ class UpcomingViewModel extends ChangeNotifier {
   UpcomingState state = UpcomingState.init;
   List<UpcomingMovieModel> moviesList = [];
   List<UpcomingMovieModel> moviesListCopy = [];
+  var randomPage = 1;
   uploadMovies() async {
     if (await NetworkConnection.checkConnection()) {
       moviesListCopy.clear();
+      moviesList.clear();
       state = UpcomingState.loading;
       notifyListeners();
-      var moviesDataList = await NowPlayingService().getNowPlayingMovies();
+      var moviesDataList =
+          await UpcomingService().getUpcomingMovies(randomPage);
+      randomPage =
+          Random.secure().nextInt(moviesDataList['total_pages'] - 1) + 1;
       for (var i = 0; i < moviesDataList['results'].length; i++) {
         moviesList
             .add(UpcomingMovieModel.fromJson(moviesDataList['results'][i]));

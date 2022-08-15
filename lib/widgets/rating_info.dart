@@ -12,7 +12,9 @@ class RatingInformation extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
-    var ratingCaptionStyle = textTheme.caption!.copyWith(color: Colors.black45);
+    var ratingCaptionStyle = textTheme.caption!.copyWith(
+      color: theme.colorScheme.primary,
+    );
 
     var numericRating = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,7 +24,7 @@ class RatingInformation extends StatelessWidget {
           movie.voteAverage!.toStringAsFixed(2),
           style: textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.w400,
-              color: theme.colorScheme.secondary,
+              color: theme.colorScheme.primary,
               fontSize: 26),
         ),
         Padding(

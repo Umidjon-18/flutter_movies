@@ -30,13 +30,9 @@ class _YoutubeViewState extends State<YoutubeView> {
 
   Map<String, dynamic> cStates = {};
 
-  // late YoutubeViewModel youtubeViewModel = YoutubeViewModel();
-
   @override
   void initState() {
     super.initState();
-    // youtubeViewModel.uploadYoutubeVideos(widget.movieId);
-    // print(youtubeViewModel.youtubeVideoLinks);
     fillYTlists();
   }
 
@@ -84,7 +80,6 @@ class _YoutubeViewState extends State<YoutubeView> {
             youtubeViewModel.uploadYoutubeVideos(widget.movieId);
             youtubeViewModel.update();
           });
-            print(youtubeViewModel.youtubeVideoLinks);
         }
         switch (youtubeViewModel.state) {
           case YoutubeState.loading:
@@ -99,7 +94,7 @@ class _YoutubeViewState extends State<YoutubeView> {
           case YoutubeState.done:
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Tubeloid'),
+                title: Text(widget.movieName),
                 centerTitle: true,
                 actions: [
                   IconButton(

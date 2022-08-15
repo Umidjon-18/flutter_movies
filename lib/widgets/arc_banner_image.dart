@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ArcBannerImage extends StatelessWidget {
-  const ArcBannerImage(this.imageUrl, Key? key) : super(key: key);
+  const ArcBannerImage(this.imageUrl, this.movieId, Key? key) : super(key: key);
 
   final String imageUrl;
+  final String movieId;
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +13,25 @@ class ArcBannerImage extends StatelessWidget {
 
     return ClipPath(
       clipper: ArcClipper(),
-      child: Image.network(
-        imageUrl,
-        width: screenWidth,
-        height: 230.0,
-        fit: BoxFit.cover,
+      child: Hero(
+        tag: movieId,
+        child: CachedNetworkImage(
+          width: screenWidth,
+          height: 230.0,
+          fit: BoxFit.cover,
+          imageUrl: imageUrl,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          errorWidget: (context, url, error) => const Image(
+            image: AssetImage('assets/images/ic_placeholder.jpeg'),
+          ),
+        ),
       ),
     );
   }

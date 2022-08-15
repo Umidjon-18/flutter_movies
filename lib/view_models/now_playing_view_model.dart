@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/models/now_playing_model.dart';
 import 'package:fluttery_filmy/services/network_services/check_connection.dart';
@@ -16,12 +18,17 @@ class NowPlayingViewModel extends ChangeNotifier {
   NowPlayingState state = NowPlayingState.init;
   List<NowPlayingMovieModel> moviesList = [];
   List<NowPlayingMovieModel> moviesListCopy = [];
+  var randomPage = 1;
   uploadMovies() async {
     if (await NetworkConnection.checkConnection()) {
       moviesListCopy.clear();
+      moviesList.clear();
       state = NowPlayingState.loading;
       notifyListeners();
-      var moviesDataList = await NowPlayingService().getNowPlayingMovies();
+      var moviesDataList =
+          await NowPlayingService().getNowPlayingMovies(randomPage);
+      randomPage =
+          Random.secure().nextInt(moviesDataList['total_pages'] - 1) + 1;
       for (var i = 0; i < moviesDataList['results'].length; i++) {
         moviesList
             .add(NowPlayingMovieModel.fromJson(moviesDataList['results'][i]));
@@ -29,9 +36,10 @@ class NowPlayingViewModel extends ChangeNotifier {
       for (NowPlayingMovieModel movie in moviesList) {
         moviesListCopy.add(movie.copyWith());
       }
-
-      state = NowPlayingState.done;
-      notifyListeners();
+      Future.delayed(const Duration(milliseconds: 500), () {
+        state = NowPlayingState.done;
+        notifyListeners();
+      });
     } else {
       state = NowPlayingState.error;
       notifyListeners();

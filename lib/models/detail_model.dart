@@ -56,13 +56,13 @@ class DetailModel {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     belongsToCollection = json['belongs_to_collection'] != null
-        ?   BelongsToCollection.fromJson(json['belongs_to_collection'])
+        ? BelongsToCollection.fromJson(json['belongs_to_collection'])
         : null;
     budget = json['budget'];
     if (json['genres'] != null) {
-      genres =   <Genres>[];
+      genres = <Genres>[];
       json['genres'].forEach((v) {
-        genres??[].add( Genres.fromJson(v));
+        genres ?? [].add(Genres.fromJson(v));
       });
     }
     homepage = json['homepage'];
@@ -76,13 +76,13 @@ class DetailModel {
     if (json['production_companies'] != null) {
       productionCompanies = <ProductionCompanies>[];
       json['production_companies'].forEach((v) {
-        productionCompanies??[].add( ProductionCompanies.fromJson(v));
+        productionCompanies ?? [].add(ProductionCompanies.fromJson(v));
       });
     }
     if (json['production_countries'] != null) {
       productionCountries = <ProductionCountries>[];
       json['production_countries'].forEach((v) {
-        productionCountries??[].add( ProductionCountries.fromJson(v));
+        productionCountries ?? [].add(ProductionCountries.fromJson(v));
       });
     }
     releaseDate = json['release_date'];
@@ -91,7 +91,7 @@ class DetailModel {
     if (json['spoken_languages'] != null) {
       spokenLanguages = <SpokenLanguages>[];
       json['spoken_languages'].forEach((v) {
-        spokenLanguages??[].add( SpokenLanguages.fromJson(v));
+        spokenLanguages ?? [].add(SpokenLanguages.fromJson(v));
       });
     }
     status = json['status'];
@@ -105,12 +105,12 @@ class DetailModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['adult'] = adult;
-    data['backdrop_path'] =  backdropPath;
+    data['backdrop_path'] = backdropPath;
     if (belongsToCollection != null) {
-      data['belongs_to_collection'] =  belongsToCollection!.toJson();
+      data['belongs_to_collection'] = belongsToCollection!.toJson();
     }
-    data['budget'] =  budget;
-    if ( genres != null) {
+    data['budget'] = budget;
+    if (genres != null) {
       data['genres'] = genres!.map((v) => v.toJson()).toList();
     }
     data['homepage'] = homepage;
@@ -152,7 +152,11 @@ class BelongsToCollection {
   String? posterPath;
   String? backdropPath;
 
-  BelongsToCollection({required this.id,required  this.name,required  this.posterPath,required  this.backdropPath});
+  BelongsToCollection(
+      {required this.id,
+      required this.name,
+      required this.posterPath,
+      required this.backdropPath});
 
   BelongsToCollection.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -175,7 +179,7 @@ class Genres {
   int? id;
   String? name;
 
-  Genres({required this.id,required  this.name});
+  Genres({required this.id, required this.name});
 
   Genres.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -196,7 +200,11 @@ class ProductionCompanies {
   String? name;
   String? originCountry;
 
-  ProductionCompanies({required  this.id,required   this.logoPath,required   this.name,required   this.originCountry});
+  ProductionCompanies(
+      {required this.id,
+      required this.logoPath,
+      required this.name,
+      required this.originCountry});
 
   ProductionCompanies.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -219,7 +227,7 @@ class ProductionCountries {
   String? iso31661;
   String? name;
 
-  ProductionCountries({required  this.iso31661,required   this.name});
+  ProductionCountries({required this.iso31661, required this.name});
 
   ProductionCountries.fromJson(Map<String, dynamic> json) {
     iso31661 = json['iso_3166_1'];
@@ -239,7 +247,8 @@ class SpokenLanguages {
   String? iso6391;
   String? name;
 
-  SpokenLanguages({required  this.englishName,required   this.iso6391, required  this.name});
+  SpokenLanguages(
+      {required this.englishName, required this.iso6391, required this.name});
 
   SpokenLanguages.fromJson(Map<String, dynamic> json) {
     englishName = json['english_name'];

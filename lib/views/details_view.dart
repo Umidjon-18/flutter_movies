@@ -25,6 +25,7 @@ class _DetailsViewState extends State<DetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Consumer<DetailViewModel>(
       builder: (context, detailViewModel, child) {
         globalDetailViewModel = detailViewModel;
@@ -35,36 +36,33 @@ class _DetailsViewState extends State<DetailsView> {
               detailViewModel.update();
             });
             return Container(
-                color: Colors.white,
+                color: theme.colorScheme.background,
                 child: const Center(child: CircularProgressIndicator()));
           case DetailState.loading:
             return Container(
-                color: Colors.white,
+                color: theme.colorScheme.background,
                 child: const Center(child: CircularProgressIndicator()));
           case DetailState.done:
             return Scaffold(
-              body: Container(
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      MovieDetailHeader(detailViewModel.detail),
-                      Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: StoryLine(detailViewModel.detail.overview ??
-                            "There is no any overview about this movie"),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    MovieDetailHeader(detailViewModel.detail),
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: StoryLine(detailViewModel.detail.overview ??
+                          "There is no any overview about this movie"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20.0,
+                        bottom: 10.0,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 20.0,
-                          bottom: 10.0,
-                        ),
-                        child: ProductionCompaniesScroller(
-                            detailViewModel.detail.productionCompanies!),
-                      ),
-                      AdditionalDetails(detailViewModel.detail),
-                    ],
-                  ),
+                      child: ProductionCompaniesScroller(
+                          detailViewModel.detail.productionCompanies!),
+                    ),
+                    AdditionalDetails(detailViewModel.detail),
+                  ],
                 ),
               ),
             );

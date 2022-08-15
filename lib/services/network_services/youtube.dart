@@ -6,7 +6,7 @@ import '../../utils/constants.dart';
 
 class YoutubeService {
   // This method gets now playing movies data from API
- static Future getYoutubeVideos(String movieId) async {
+  static Future getYoutubeVideos(String movieId) async {
     final String url =
         '${Constants.baseUrl}/3/movie/$movieId/videos?api_key=${Constants.myApiKey}';
 

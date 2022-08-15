@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,12 +18,15 @@ class PopularViewModel extends ChangeNotifier {
   PopularState state = PopularState.init;
   List<PopularMovieModel> moviesList = [];
   List<PopularMovieModel> moviesListCopy = [];
+  var randomPage = 1;
   uploadMovies() async {
     if (await NetworkConnection.checkConnection()) {
       moviesListCopy.clear();
+      moviesList.clear();
       state = PopularState.loading;
       notifyListeners();
-      var moviesDataList = await PopularService().getPopularMovies();
+      var moviesDataList = await PopularService().getPopularMovies(randomPage);
+      randomPage = Random.secure().nextInt(500) + 1;
       for (var i = 0; i < moviesDataList['results'].length; i++) {
         moviesList
             .add(PopularMovieModel.fromJson(moviesDataList['results'][i]));

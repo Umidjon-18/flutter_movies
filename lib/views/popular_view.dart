@@ -16,12 +16,12 @@ class _PopularViewState extends State<PopularView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<PopularViewModel>(
-      builder: (context, upcomingViewModel, child) {
-        switch (upcomingViewModel.state) {
+      builder: (context, popularViewModel, child) {
+        switch (popularViewModel.state) {
           case PopularState.init:
             Future.delayed(Duration.zero, () {
-              upcomingViewModel.uploadMovies();
-              upcomingViewModel.update();
+              popularViewModel.uploadMovies();
+              popularViewModel.update();
             });
             return const Center(child: CircularProgressIndicator());
           case PopularState.loading:
@@ -31,12 +31,15 @@ class _PopularViewState extends State<PopularView> {
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: PopularGrid(
-                  moviesList: upcomingViewModel.moviesList,
+                  moviesList: popularViewModel.moviesList,
+                  popularViewModel: popularViewModel,
                 ),
               ),
             );
           case PopularState.error:
-            return const ConnectionErrorView(pageIndex: 2,);
+            return const ConnectionErrorView(
+              pageIndex: 2,
+            );
           default:
         }
         return const Center(child: CircularProgressIndicator());

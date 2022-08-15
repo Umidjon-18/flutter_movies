@@ -10,6 +10,7 @@ import 'view_models/upcoming_view_model.dart';
 import 'view_models/youtube_view_model.dart';
 
 void main() {
+  ErrorWidget.builder = (FlutterErrorDetails details) => Container();
   runApp(const MyApp());
 }
 
@@ -27,12 +28,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DetailViewModel()),
         ChangeNotifierProvider(create: (_) => YoutubeViewModel()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        onGenerateRoute: (settings) => Routes.generateRoute(settings),
+      child: Consumer<HomeViewModel>(
+        builder: (context, homeViewModel, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: homeViewModel.isDark ? ThemeData.dark() : ThemeData.light(),
+            onGenerateRoute: (settings) => Routes.generateRoute(settings),
+          );
+        },
       ),
     );
   }

@@ -31,12 +31,14 @@ class _NowPlayingViewState extends State<NowPlayingView> {
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: NowPlayingGrid(
-                  moviesList: nowPlayingViewModel.moviesList,  nowPlayingViewModel:nowPlayingViewModel
-                ),
+                    moviesList: nowPlayingViewModel.moviesList,
+                    nowPlayingViewModel: nowPlayingViewModel),
               ),
             );
           case NowPlayingState.error:
-            return const ConnectionErrorView(pageIndex: 0,);
+            return const ConnectionErrorView(
+              pageIndex: 0,
+            );
           default:
         }
         return const Center(child: CircularProgressIndicator());

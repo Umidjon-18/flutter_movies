@@ -24,8 +24,9 @@ class AdditionalDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Additional Details',
-            style: textTheme.headlineMedium!
-                .copyWith(fontSize: 20.0, color: Colors.black),
+            style: textTheme.headlineMedium!.copyWith(
+              fontSize: 20.0,
+            ),
           ),
         ),
         SizedBox.fromSize(
@@ -36,51 +37,44 @@ class AdditionalDetails extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20.0),
             children: [
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.calendar_month_rounded,
-                  color: Colors.blueGrey[900],
                 ),
                 title: Text(movie.releaseDate.toString()),
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.favorite,
-                  color: Colors.blueGrey[900],
                 ),
                 title: Text("${movie.voteCount} likes"),
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.hourglass_bottom_rounded,
-                  color: Colors.blueGrey[900],
                 ),
                 title: Text("${movie.runtime} minutes"),
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.monetization_on_outlined,
-                  color: Colors.blueGrey[900],
                 ),
                 title: Text("${movie.revenue} USD"),
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   CupertinoIcons.globe,
-                  color: Colors.blueGrey[900],
                 ),
                 title: Text(spokenLanguages.join(', ')),
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   MaterialIcons.flag,
-                  color: Colors.blueGrey[900],
                 ),
                 title: Text(productionCountries.join(', ')),
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   CupertinoIcons.location_solid,
-                  color: Colors.blueGrey[900],
                 ),
                 title: GestureDetector(
                   child: Text(

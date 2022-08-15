@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:fluttery_filmy/models/now_playing_model.dart';
 import 'package:provider/provider.dart';
 
@@ -19,47 +18,25 @@ class NowPlayingGrid extends StatefulWidget {
 }
 
 class _NowPlayingGridState extends State<NowPlayingGrid> {
-  late ScrollController scrollController;
-  @override
-  void initState() {
-    super.initState();
-    scrollController = ScrollController();
-    // scrollController.addListener(() {
-    //   if (scrollController.position.pixels.truncate() > -100) {
-    //     print('swiped to down');
-    //     widget.nowPlayingViewModel.update();
-    //     // nowPlayingViewModel.uploadMovies();
-    //   }
-    // });
-//     double lastEndOfScroll = 0;
-
-// scrollController.addListener(() {
-//   double maxScroll = scrollController.position.;
-//   double currentScroll = scrollController.position.pixels;
-//   if (maxScroll == currentScroll) {
-//       lastEndOfScroll = maxScroll;
-//       print('swiped to down');
-//     }
-// });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<NowPlayingViewModel>(
-      builder: (BuildContext context, value, Widget? child) {
-        return NotificationListener<ScrollUpdateNotification>(
-          onNotification: (notification) {
-            print(notification);
-            return true;
+      builder: (BuildContext context, nowPlayingViewModel, Widget? child) {
+        return RefreshIndicator(
+          color: Colors.white,
+          backgroundColor: Colors.white,
+          strokeWidth: 0,
+          onRefresh: () async {
+            nowPlayingViewModel.uploadMovies();
           },
           child: GridView.builder(
-            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
             itemCount: widget.moviesList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount:
                   (MediaQuery.of(context).orientation == Orientation.portrait)
                       ? 2
-                      : 3,
+                      : 4,
               mainAxisSpacing: 5,
               crossAxisSpacing: 5,
             ),
@@ -74,25 +51,30 @@ class _NowPlayingGridState extends State<NowPlayingGrid> {
                 ),
                 child: Stack(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl:
-                          "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
+                    Hero(
+                      tag: movie.id.toString(),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
+                        errorWidget: (context, url, error) => const Image(
+                          image: AssetImage('assets/images/placeholder.jpeg'),
+                        ),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
                           height: 60,
+                          padding: const EdgeInsets.all(5),
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -104,8 +86,11 @@ class _NowPlayingGridState extends State<NowPlayingGrid> {
                           child: Center(
                               child: Text(
                             movie.originalTitle ?? "Undefined",
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           )),
                         ),
                       ],

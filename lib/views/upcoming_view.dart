@@ -32,11 +32,14 @@ class _UpcomingViewState extends State<UpcomingView> {
                 padding: const EdgeInsets.all(8.0),
                 child: UpcomingGrid(
                   moviesList: upcomingViewModel.moviesList,
+                  upcomingViewModel: upcomingViewModel,
                 ),
               ),
             );
           case UpcomingState.error:
-            return const ConnectionErrorView(pageIndex: 1,);
+            return const ConnectionErrorView(
+              pageIndex: 1,
+            );
           default:
         }
         return const Center(child: CircularProgressIndicator());

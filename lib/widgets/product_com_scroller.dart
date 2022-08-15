@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/models/detail_model.dart';
 
 class ProductionCompaniesScroller extends StatelessWidget {
-  ProductionCompaniesScroller(this.productionCompanies);
+  const ProductionCompaniesScroller(this.productionCompanies, {Key? key})
+      : super(key: key);
 
   final List<ProductionCompanies> productionCompanies;
 

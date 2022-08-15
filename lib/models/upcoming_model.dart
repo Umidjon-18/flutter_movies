@@ -47,8 +47,7 @@ class UpcomingMovieModel {
     voteCount = json['vote_count'];
   }
 
- 
-    UpcomingMovieModel copyWith(
+  UpcomingMovieModel copyWith(
       {bool? adult,
       String? backdropPath,
       List<int>? genreIds,
@@ -64,23 +63,22 @@ class UpcomingMovieModel {
       dynamic voteAverage,
       int? voteCount}) {
     return UpcomingMovieModel(
-      adult: adult??this.adult,
-      backdropPath: backdropPath??this.backdropPath,
-      genreIds: genreIds??this.genreIds,
-      id: id??this.id,
-      originalLanguage: originalLanguage??this.originalLanguage,
-      originalTitle: originalTitle??this.originalTitle,
-      overview: overview??this.overview,
-      popularity: popularity??this.popularity,
-      posterPath: posterPath??this.posterPath,
-      releaseDate: releaseDate??this.releaseDate,
-      title: title??this.title,
-      video: video??this.video,
-      voteAverage: voteAverage??this.voteAverage,
-      voteCount: voteCount??this.voteCount,
+      adult: adult ?? this.adult,
+      backdropPath: backdropPath ?? this.backdropPath,
+      genreIds: genreIds ?? this.genreIds,
+      id: id ?? this.id,
+      originalLanguage: originalLanguage ?? this.originalLanguage,
+      originalTitle: originalTitle ?? this.originalTitle,
+      overview: overview ?? this.overview,
+      popularity: popularity ?? this.popularity,
+      posterPath: posterPath ?? this.posterPath,
+      releaseDate: releaseDate ?? this.releaseDate,
+      title: title ?? this.title,
+      video: video ?? this.video,
+      voteAverage: voteAverage ?? this.voteAverage,
+      voteCount: voteCount ?? this.voteCount,
     );
   }
-
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

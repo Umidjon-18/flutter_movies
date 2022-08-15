@@ -6,10 +6,9 @@ import '../../utils/constants.dart';
 
 class UpcomingService {
   // This method gets now playing movies data from API
-  Future getUpcomingMovies() async {
-    const String url =
-        '${Constants.baseUrl}/3/movie/upcoming?api_key=${Constants.myApiKey}&page=1';
-
+  Future getUpcomingMovies(randomPage) async {
+    final String url =
+        '${Constants.baseUrl}/3/movie/upcoming?api_key=${Constants.myApiKey}&page=$randomPage';
     try {
       final response = await get(Uri.parse(url));
       switch (response.statusCode) {
