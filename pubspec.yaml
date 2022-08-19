@@ -18,9 +18,12 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   connectivity_plus: ^2.3.6+1
   url_launcher: ^6.1.5
-  flutter_font_icons: ^2.2.5
-  youtube_player_flutter: ^8.1.0
+  pod_player: ^0.1.0
   shared_preferences: ^2.0.15
+  animated_snack_bar: ^0.2.2
+  animated_icon_button: ^1.0.2
+  show_up_animation: ^2.0.0
+  easy_localization: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +37,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/translations/
 
 
   # fonts:

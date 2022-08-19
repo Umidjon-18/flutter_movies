@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:fluttery_filmy/models/detail_model.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -12,6 +12,7 @@ class AdditionalDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
     var textTheme = Theme.of(context).textTheme;
     List spokenLanguages = List.generate(movie.spokenLanguages!.length,
         ((index) => movie.spokenLanguages![index].name));
@@ -23,14 +24,16 @@ class AdditionalDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'Additional Details',
+            'additionalDetails',
             style: textTheme.headlineMedium!.copyWith(
               fontSize: 20.0,
             ),
-          ),
+          ).tr(),
         ),
         SizedBox.fromSize(
-          size: Size.fromHeight(size.height * 0.7),
+          size: orientation == Orientation.portrait
+              ? Size.fromHeight(size.height * 0.7)
+              : Size.fromHeight(size.height),
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
@@ -46,13 +49,13 @@ class AdditionalDetails extends StatelessWidget {
                 leading: const Icon(
                   Icons.favorite,
                 ),
-                title: Text("${movie.voteCount} likes"),
+                title: Text("${movie.voteCount} ${"likes".tr()}"),
               ),
               ListTile(
                 leading: const Icon(
                   Icons.hourglass_bottom_rounded,
                 ),
-                title: Text("${movie.runtime} minutes"),
+                title: Text("${movie.runtime} ${"minutes".tr()}"),
               ),
               ListTile(
                 leading: const Icon(
@@ -68,7 +71,7 @@ class AdditionalDetails extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(
-                  MaterialIcons.flag,
+                  Icons.flag,
                 ),
                 title: Text(productionCountries.join(', ')),
               ),

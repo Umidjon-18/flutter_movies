@@ -14,6 +14,8 @@ class UpcomingGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    Orientation screenOrientation = MediaQuery.of(context).orientation;
     return RefreshIndicator(
       backgroundColor: Colors.white,
       strokeWidth: 0,
@@ -30,6 +32,7 @@ class UpcomingGrid extends StatelessWidget {
                   : 4,
           mainAxisSpacing: 5,
           crossAxisSpacing: 5,
+          childAspectRatio: 1 / 1.3,
         ),
         itemBuilder: (BuildContext _, int index) {
           final movie = moviesList[index];
@@ -64,7 +67,9 @@ class UpcomingGrid extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      height: 60,
+                      height: screenOrientation == Orientation.landscape
+                          ? size.height * 0.15
+                          : size.width * 0.12,
                       padding: const EdgeInsets.all(5),
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -76,7 +81,7 @@ class UpcomingGrid extends StatelessWidget {
                       ),
                       child: Center(
                           child: Text(
-                        movie.originalTitle ?? "Undefined",
+                        movie.title ?? "Undefined",
                         textAlign: TextAlign.center,
                         style:
                             const TextStyle(color: Colors.white, fontSize: 16),

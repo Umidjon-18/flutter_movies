@@ -6,13 +6,13 @@ class PopularMovieModel {
   String? originalLanguage;
   String? originalTitle;
   String? overview;
-  double? popularity;
+  num? popularity;
   String? posterPath;
   String? releaseDate;
   String? title;
   bool? video;
   dynamic voteAverage;
-  int? voteCount;
+  num? voteCount;
 
   PopularMovieModel(
       {this.adult,

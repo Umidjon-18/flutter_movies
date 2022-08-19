@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,9 +24,15 @@ class _PopularViewState extends State<PopularView> {
               popularViewModel.uploadMovies();
               popularViewModel.update();
             });
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
           case PopularState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
           case PopularState.done:
             return Scaffold(
               body: Padding(
@@ -42,7 +49,10 @@ class _PopularViewState extends State<PopularView> {
             );
           default:
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
       },
     );
   }

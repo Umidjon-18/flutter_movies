@@ -2,28 +2,28 @@ class DetailModel {
   bool? adult;
   String? backdropPath;
   BelongsToCollection? belongsToCollection;
-  int? budget;
+  num? budget;
   List<Genres>? genres;
   String? homepage;
-  int? id;
+  num? id;
   String? imdbId;
   String? originalLanguage;
   String? originalTitle;
   String? overview;
-  double? popularity;
+  num? popularity;
   String? posterPath;
   List<ProductionCompanies>? productionCompanies;
   List<ProductionCountries>? productionCountries;
   String? releaseDate;
-  int? revenue;
-  int? runtime;
+  num? revenue;
+  num? runtime;
   List<SpokenLanguages>? spokenLanguages;
   String? status;
   String? tagline;
   String? title;
   bool? video;
-  double? voteAverage;
-  int? voteCount;
+  num? voteAverage;
+  num? voteCount;
 
   DetailModel(
       {this.adult,

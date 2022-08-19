@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class StoryLine extends StatelessWidget {
@@ -16,9 +17,9 @@ class StoryLine extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 16.0),
           child: Text(
-            'Overview',
+            'overview',
             style: textTheme.headlineMedium!.copyWith(fontSize: 18.0),
-          ),
+          ).tr(),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
@@ -40,7 +41,7 @@ class StoryLine extends StatelessWidget {
                 'more',
                 style: textTheme.bodyText1!
                     .copyWith(fontSize: 16.0, color: theme.colorScheme.primary),
-              ),
+              ).tr(),
               Icon(
                 Icons.keyboard_arrow_down,
                 size: 18.0,

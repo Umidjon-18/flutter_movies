@@ -1,0 +1,28 @@
+{
+    "appName":"Flutter Movies",
+    "searchHint":"Search movies...",
+    "nowPlaying":"Now Playing",
+    "upcoming":"Upcoming",
+    "popular":"Popular",
+    "sortByPopularity":"Sort by Popularity",
+    "sortByRate":"Sort by Rate",
+    "sortByDate":"Sort by Date",
+    "sortByVote":"Sort by Vote",
+    "overview":"Overview",
+    "ratings":"Ratings",
+    "gradeNow":"Grade now",
+    "productionCompanies":"Production Companies",
+    "additionalDetails":"Additional Details",
+    "more":"more",
+    "likes":"likes",
+    "minutes":"minutes",
+    "english":"English",
+    "russian":"Russian",
+    "uzbek":"Uzbek",
+    "defaultOverview":"There is no any overview about this movie",
+    "videoListIsEmpty":"Videos List is empty",
+    "videoLinkCopiedToClipboard":"Video Link copied to Clipboard",
+    "videoNotFound":"Video not found",
+    "tryAgain":"Try Again"
+
+}

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class ArcBannerImage extends StatelessWidget {
   const ArcBannerImage(this.imageUrl, this.movieId, Key? key) : super(key: key);
@@ -28,6 +28,7 @@ class ArcBannerImage extends StatelessWidget {
               ),
             ),
           ),
+          placeholder: (context, url) => const CupertinoActivityIndicator(),//Image(image: AssetImage(assetName)),
           errorWidget: (context, url, error) => const Image(
             image: AssetImage('assets/images/ic_placeholder.jpeg'),
           ),

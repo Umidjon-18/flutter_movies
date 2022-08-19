@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/views/details_view.dart';
+import 'package:fluttery_filmy/views/intro_view.dart';
 import 'package:fluttery_filmy/views/youtube_view.dart';
 
 import '../views/home_view.dart';
 
 class Routes {
+  static const String introPage = '/';
+  static const String homePage = '/homePage';
   static const String detailPage = '/detailPage';
   static const String youtubePage = '/youtubePage';
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -13,6 +16,20 @@ class Routes {
           routeSettings.arguments as Map<String, dynamic>?;
       args ?? <String, dynamic>{};
       switch (routeSettings.name) {
+        case introPage:
+          return MaterialPageRoute(
+            builder: (
+              context,
+            ) =>
+                const IntroView(),
+          );
+          case homePage:
+          return MaterialPageRoute(
+            builder: (
+              context,
+            ) =>
+                const HomeView(),
+          );
         case detailPage:
           return MaterialPageRoute(
             builder: (

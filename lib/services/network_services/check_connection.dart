@@ -9,8 +9,6 @@ class NetworkConnection {
       return true;
     } else if (result == ConnectivityResult.ethernet) {
       return true;
-    } else if (result == ConnectivityResult.bluetooth) {
-      return true;
     } else if (result == ConnectivityResult.none) {
       return false;
     }

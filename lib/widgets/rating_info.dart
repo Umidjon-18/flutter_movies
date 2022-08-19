@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttery_filmy/models/detail_model.dart';
@@ -30,9 +31,9 @@ class RatingInformation extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: Text(
-            'Ratings',
+            'ratings',
             style: ratingCaptionStyle,
-          ),
+          ).tr(),
         ),
       ],
     );
@@ -57,9 +58,9 @@ class RatingInformation extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 4.0, left: 4.0),
           child: Text(
-            'Grade now',
+            'gradeNow',
             style: ratingCaptionStyle,
-          ),
+          ).tr(),
         ),
       ],
     );

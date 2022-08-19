@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/models/detail_model.dart';
 
@@ -41,9 +42,9 @@ class ProductionCompaniesScroller extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'Production Companies',
+            'productionCompanies',
             style: textTheme.headlineMedium!.copyWith(fontSize: 18.0),
-          ),
+          ).tr(),
         ),
         SizedBox.fromSize(
           size: const Size.fromHeight(120.0),

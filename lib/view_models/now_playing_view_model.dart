@@ -19,16 +19,22 @@ class NowPlayingViewModel extends ChangeNotifier {
   List<NowPlayingMovieModel> moviesList = [];
   List<NowPlayingMovieModel> moviesListCopy = [];
   var randomPage = 1;
+  var totalPages = 1;
   uploadMovies() async {
-    if (await NetworkConnection.checkConnection()) {
+    bool isAvailableConnection = await NetworkConnection.checkConnection();
+    if (isAvailableConnection) {
       moviesListCopy.clear();
       moviesList.clear();
       state = NowPlayingState.loading;
       notifyListeners();
       var moviesDataList =
           await NowPlayingService().getNowPlayingMovies(randomPage);
-      randomPage =
-          Random.secure().nextInt(moviesDataList['total_pages'] - 1) + 1;
+      totalPages = moviesDataList['total_pages'];
+      if (randomPage < totalPages && randomPage<25) {
+        randomPage += 1;
+      } else {
+        randomPage = 1;
+      }
       for (var i = 0; i < moviesDataList['results'].length; i++) {
         moviesList
             .add(NowPlayingMovieModel.fromJson(moviesDataList['results'][i]));
@@ -96,21 +102,20 @@ class NowPlayingViewModel extends ChangeNotifier {
   searchMovie(String searchText) {
     List<NowPlayingMovieModel> tempValue = [];
     for (var movie in moviesListCopy) {
-      if (movie.originalTitle!
-          .toLowerCase()
-          .contains(searchText.toLowerCase())) {
+      bool searchResult =
+          movie.originalTitle!.toLowerCase().contains(searchText.toLowerCase());
+      if (searchResult) {
         tempValue.add(movie);
       }
     }
     moviesList.clear();
     moviesList = tempValue;
-    notifyListeners();
     if (searchText.isEmpty) {
       moviesList.clear();
       for (NowPlayingMovieModel movie in moviesListCopy) {
         moviesList.add(movie.copyWith());
       }
-      notifyListeners();
     }
+    notifyListeners();
   }
 }

@@ -19,16 +19,22 @@ class UpcomingViewModel extends ChangeNotifier {
   List<UpcomingMovieModel> moviesList = [];
   List<UpcomingMovieModel> moviesListCopy = [];
   var randomPage = 1;
+  var totalPages = 1;
   uploadMovies() async {
-    if (await NetworkConnection.checkConnection()) {
+    bool isAvailableConnection = await NetworkConnection.checkConnection();
+    if (isAvailableConnection) {
       moviesListCopy.clear();
       moviesList.clear();
       state = UpcomingState.loading;
       notifyListeners();
       var moviesDataList =
           await UpcomingService().getUpcomingMovies(randomPage);
-      randomPage =
-          Random.secure().nextInt(moviesDataList['total_pages'] - 1) + 1;
+      totalPages = moviesDataList['total_pages'];
+      if (randomPage < totalPages && randomPage<25) {
+        randomPage += 1;
+      } else {
+        randomPage = 1;
+      }
       for (var i = 0; i < moviesDataList['results'].length; i++) {
         moviesList
             .add(UpcomingMovieModel.fromJson(moviesDataList['results'][i]));
@@ -102,13 +108,12 @@ class UpcomingViewModel extends ChangeNotifier {
     }
     moviesList.clear();
     moviesList = tempValue;
-    notifyListeners();
     if (searchText.isEmpty) {
       moviesList.clear();
       for (UpcomingMovieModel movie in moviesListCopy) {
         moviesList.add(movie.copyWith());
       }
-      notifyListeners();
     }
+    notifyListeners();
   }
 }

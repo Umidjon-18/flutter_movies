@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/view_models/detail_view_model.dart';
 import 'package:fluttery_filmy/views/connection_error_view.dart';
@@ -37,11 +39,17 @@ class _DetailsViewState extends State<DetailsView> {
             });
             return Container(
                 color: theme.colorScheme.background,
-                child: const Center(child: CircularProgressIndicator()));
+                child: const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),));
           case DetailState.loading:
             return Container(
                 color: theme.colorScheme.background,
-                child: const Center(child: CircularProgressIndicator()));
+                child: const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),));
           case DetailState.done:
             return Scaffold(
               body: SingleChildScrollView(
@@ -51,7 +59,7 @@ class _DetailsViewState extends State<DetailsView> {
                     Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: StoryLine(detailViewModel.detail.overview ??
-                          "There is no any overview about this movie"),
+                          "defaultOverview".tr()),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -73,7 +81,10 @@ class _DetailsViewState extends State<DetailsView> {
             );
           default:
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
       },
     );
   }

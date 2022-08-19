@@ -13,18 +13,21 @@ enum YoutubeState {
 
 class YoutubeViewModel extends ChangeNotifier {
   YoutubeState state = YoutubeState.init;
-  late List<String> youtubeVideoLinks = [];
+  late Map<String, String> youtubeVideos = {};
   int initialVideoIndex = 0;
   uploadYoutubeVideos(String movieId) async {
-    if (await NetworkConnection.checkConnection()) {
+    bool isAvailableConnection = await NetworkConnection.checkConnection();
+    if (isAvailableConnection) {
       state = YoutubeState.loading;
       notifyListeners();
       var request = await YoutubeService.getYoutubeVideos(movieId);
       // print(request);
       for (var video in request['results']) {
-        youtubeVideoLinks.add(
-            "https://www.youtube.com/watch?v=${YoutubeVideoModel.fromJson(video).key}");
+        YoutubeVideoModel youtubeVideo = YoutubeVideoModel.fromJson(video);
+        youtubeVideos[youtubeVideo.name ?? "Video Name"] =
+            "https://www.youtube.com/watch?v=${youtubeVideo.key}";
       }
+
       state = YoutubeState.done;
       notifyListeners();
     } else {
@@ -37,7 +40,7 @@ class YoutubeViewModel extends ChangeNotifier {
   }
 
   onDispose() {
-    youtubeVideoLinks.clear();
+    youtubeVideos.clear();
     state = YoutubeState.init;
   }
 }

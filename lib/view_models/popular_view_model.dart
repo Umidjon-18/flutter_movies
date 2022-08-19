@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -20,13 +18,18 @@ class PopularViewModel extends ChangeNotifier {
   List<PopularMovieModel> moviesListCopy = [];
   var randomPage = 1;
   uploadMovies() async {
-    if (await NetworkConnection.checkConnection()) {
+    bool isAvailableConnection = await NetworkConnection.checkConnection();
+    if (isAvailableConnection) {
       moviesListCopy.clear();
       moviesList.clear();
       state = PopularState.loading;
       notifyListeners();
       var moviesDataList = await PopularService().getPopularMovies(randomPage);
-      randomPage = Random.secure().nextInt(500) + 1;
+      if (randomPage < 50) {
+        randomPage += 1;
+      } else {
+        randomPage = 1;
+      }
       for (var i = 0; i < moviesDataList['results'].length; i++) {
         moviesList
             .add(PopularMovieModel.fromJson(moviesDataList['results'][i]));
@@ -92,9 +95,9 @@ class PopularViewModel extends ChangeNotifier {
   searchMovie(String searchText) {
     List<PopularMovieModel> tempValue = [];
     for (var movie in moviesListCopy) {
-      if (movie.originalTitle!
-          .toLowerCase()
-          .contains(searchText.toLowerCase())) {
+      bool searchResult =
+          movie.originalTitle!.toLowerCase().contains(searchText.toLowerCase());
+      if (searchResult) {
         tempValue.add(movie);
       }
     }

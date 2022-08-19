@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +10,23 @@ import 'view_models/popular_view_model.dart';
 import 'view_models/upcoming_view_model.dart';
 import 'view_models/youtube_view_model.dart';
 
-void main() {
+void main() async {
   ErrorWidget.builder = (FlutterErrorDetails details) => Container();
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('uz', 'UZ'),
+        Locale('en', 'US'),
+        Locale('ru', 'RU')
+      ],
+      path:
+          'assets/translations', // <-- change the path of the translation files
+      fallbackLocale: const Locale('en', 'US'),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,6 +48,9 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: homeViewModel.isDark ? ThemeData.dark() : ThemeData.light(),
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             onGenerateRoute: (settings) => Routes.generateRoute(settings),
           );
         },

@@ -15,7 +15,8 @@ class DetailViewModel extends ChangeNotifier {
   DetailState state = DetailState.init;
   late DetailModel detail;
   uploadMovieDetails(String movieId) async {
-    if (await NetworkConnection.checkConnection()) {
+    bool isAvailableConnection = await NetworkConnection.checkConnection();
+    if (isAvailableConnection) {
       state = DetailState.loading;
       notifyListeners();
       var request = await MovieDetailService.uploadMovieDetail(movieId);

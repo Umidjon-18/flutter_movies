@@ -1,8 +1,12 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttery_filmy/view_models/youtube_view_model.dart';
 import 'package:fluttery_filmy/views/connection_error_view.dart';
+import 'package:pod_player/pod_player.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeView extends StatefulWidget {
   const YoutubeView({required this.movieId, required this.movieName, Key? key})
@@ -15,59 +19,11 @@ class YoutubeView extends StatefulWidget {
 }
 
 class _YoutubeViewState extends State<YoutubeView> {
-  late String videoTitle;
-  // Url List
-  final List<String> _videoUrlList = [
-    'https://youtu.be/dWs3dzj4Wng',
-    'https://www.youtube.com/watch?v=668nUCeBHyY',
-    'https://youtu.be/S3npWREXr8s',
-    'https://youtu.be/S3npWREXr8s',
-    'https://youtu.be/S3npWREXr8s',
-    'https://youtu.be/S3npWREXr8s',
-  ];
-
-  List<YoutubePlayerController> lYTC = [];
-
-  Map<String, dynamic> cStates = {};
-
-  @override
-  void initState() {
-    super.initState();
-    fillYTlists();
-  }
-
-  fillYTlists() {
-    for (var element in _videoUrlList) {
-      String id = YoutubePlayer.convertUrlToId(element)!;
-      YoutubePlayerController ytController = YoutubePlayerController(
-        initialVideoId: id,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          enableCaption: true,
-          captionLanguage: 'en',
-        ),
-      );
-
-      ytController.addListener(() {
-        if (cStates[id] != ytController.value.isPlaying) {
-          if (mounted) {
-            setState(() {
-              cStates[id] = ytController.value.isPlaying;
-            });
-          }
-        }
-      });
-
-      lYTC.add(ytController);
-    }
-  }
+  late YoutubeViewModel globalYoutubeViewModel;
 
   @override
   void dispose() {
-    for (var element in lYTC) {
-      element.dispose();
-    }
-    // youtubeViewModel.onDispose();
+    globalYoutubeViewModel.onDispose();
     super.dispose();
   }
 
@@ -75,106 +31,163 @@ class _YoutubeViewState extends State<YoutubeView> {
   Widget build(BuildContext context) {
     return Consumer<YoutubeViewModel>(
       builder: (context, youtubeViewModel, child) {
+        globalYoutubeViewModel = youtubeViewModel;
         if (youtubeViewModel.state == YoutubeState.init) {
           Future.delayed(Duration.zero, () {
             youtubeViewModel.uploadYoutubeVideos(widget.movieId);
             youtubeViewModel.update();
           });
         }
-        switch (youtubeViewModel.state) {
-          case YoutubeState.loading:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          case YoutubeState.error:
-            return ConnectionErrorView(
-              pageIndex: 4,
-              movieId: widget.movieId,
-            );
-          case YoutubeState.done:
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(widget.movieName),
-                centerTitle: true,
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.menu_outlined),
-                  )
-                ],
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ListView.builder(
-                  itemCount: _videoUrlList.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    YoutubePlayerController ytController = lYTC[index];
-                    String id =
-                        YoutubePlayer.convertUrlToId(_videoUrlList[index])!;
-                    String curState = 'undefined';
-                    if (cStates[id] != null) {
-                      curState = cStates[id] ? 'playing' : 'paused';
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Container(
-                            height: 220.0,
-                            decoration: const BoxDecoration(
-                              color: Color(0xfff5f5f5),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
-                            ),
-                            child: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(12)),
-                              child: YoutubePlayer(
-                                controller: ytController,
-                                showVideoProgressIndicator: true,
-                                progressIndicatorColor: Colors.lightBlueAccent,
-                                bottomActions: [
-                                  CurrentPosition(),
-                                  ProgressBar(isExpanded: true),
-                                  FullScreenButton(),
+        return Scaffold(
+          appBar: MediaQuery.of(context).orientation == Orientation.portrait
+              ? AppBar(
+                  title: Text(widget.movieName),
+                  centerTitle: true,
+                )
+              : null,
+          body: youtubeViewModel.state == YoutubeState.loading
+              ? const Center(child: CupertinoActivityIndicator())
+              : youtubeViewModel.state == YoutubeState.error
+                  ? const ConnectionErrorView(pageIndex: 4)
+                  : youtubeViewModel.youtubeVideos.isNotEmpty
+                      ? SafeArea(
+                          child: ListView.builder(
+                            itemCount: youtubeViewModel.youtubeVideos.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: YoutubeVideoViewer(
+                                      videoLink: youtubeViewModel
+                                          .youtubeVideos.values
+                                          .elementAt(index),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 15),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 10,
+                                          child: Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 20),
+                                            child: Text(
+                                              youtubeViewModel
+                                                  .youtubeVideos.keys
+                                                  .elementAt(index),
+                                              style:
+                                                  const TextStyle(fontSize: 20),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                            flex: 1,
+                                            child: IconButton(
+                                                onPressed: () {
+                                                  Clipboard.setData(
+                                                    ClipboardData(
+                                                      text: youtubeViewModel
+                                                          .youtubeVideos.values
+                                                          .elementAt(index),
+                                                    ),
+                                                  );
+                                                  AnimatedSnackBar.material(
+                                                    'videoLinkCopiedToClipboard'
+                                                        .tr(),
+                                                    duration: const Duration(
+                                                        seconds: 2),
+                                                    type: AnimatedSnackBarType
+                                                        .success,
+                                                  ).show(context);
+                                                },
+                                                icon: const Icon(Icons.copy)))
+                                      ],
+                                    ),
+                                  ),
                                 ],
-                                onReady: () {},
-                                onEnded: (YoutubeMetaData _md) {
-                                  ytController
-                                      .seekTo(const Duration(seconds: 0));
-                                },
-                              ),
-                            ),
+                              );
+                            },
                           ),
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.9),
-                              borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(12),
-                                bottomLeft: Radius.circular(12),
-                              ),
-                            ),
-                            child: Text(
-                              curState,
-                              textScaleFactor: 1.5,
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          default:
-        }
-        return Center(
-          child: CircularProgressIndicator(),
+                        )
+                      : Center(
+                          child: const Text(
+                            'videoListIsEmpty',
+                            style: TextStyle(fontSize: 22),
+                          ).tr(),
+                        ),
         );
       },
     );
+  }
+}
+
+class YoutubeVideoViewer extends StatefulWidget {
+  const YoutubeVideoViewer({required this.videoLink, Key? key})
+      : super(key: key);
+  final String videoLink;
+  @override
+  State<YoutubeVideoViewer> createState() => _YoutubeVideoViewerState();
+}
+
+class _YoutubeVideoViewerState extends State<YoutubeVideoViewer> {
+  late final PodPlayerController controller;
+  bool isLoading = true;
+  bool isErrorOnLoading = false;
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
+  void initState() {
+    loadVideo();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  void loadVideo() async {
+    try {
+      final urls = await PodPlayerController.getYoutubeUrls(
+        widget.videoLink,
+      );
+      setState(() => isLoading = false);
+      controller = PodPlayerController(
+        playVideoFrom: PlayVideoFrom.networkQualityUrls(videoUrls: urls!),
+        podPlayerConfig: const PodPlayerConfig(
+          autoPlay: false,
+          videoQualityPriority: [360],
+        ),
+      )..initialise();
+    } catch (e) {
+      isErrorOnLoading = true;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),)
+        : isErrorOnLoading
+            ? Container(
+              width: double.infinity,
+              height: 200,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Center(child: const Text("videoNotFound").tr(),),
+            )
+            : Center(child: PodVideoPlayer(controller: controller));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/widgets/now_playing_movie_grid.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,15 @@ class _NowPlayingViewState extends State<NowPlayingView> {
               nowPlayingViewModel.uploadMovies();
               nowPlayingViewModel.update();
             });
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
           case NowPlayingState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
           case NowPlayingState.done:
             return Scaffold(
               body: Padding(
@@ -41,7 +48,10 @@ class _NowPlayingViewState extends State<NowPlayingView> {
             );
           default:
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttery_filmy/view_models/upcoming_view_model.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,15 @@ class _UpcomingViewState extends State<UpcomingView> {
               upcomingViewModel.uploadMovies();
               upcomingViewModel.update();
             });
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
           case UpcomingState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
           case UpcomingState.done:
             return Scaffold(
               body: Padding(
@@ -42,7 +49,10 @@ class _UpcomingViewState extends State<UpcomingView> {
             );
           default:
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CupertinoActivityIndicator(
+                    radius: 50,
+                    color: Color.fromARGB(255, 2, 5, 82),
+                  ),);
       },
     );
   }

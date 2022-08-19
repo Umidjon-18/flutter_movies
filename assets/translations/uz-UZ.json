@@ -1,0 +1,28 @@
+{
+    "appName":"Flutter Filmlar",
+    "searchHint":"Filmlarni qidirish...",
+    "nowPlaying":"Jonli",
+    "upcoming":"Kutilayotgan",
+    "popular":"Mashhur",
+    "sortByPopularity":"Mashhurlik bo'yicha saralash",
+    "sortByRate":"Reyting bo'yicha saralash",
+    "sortByDate":"Vaqt bo'yicha saralash",
+    "sortByVote":"Ovozlar bo'yicha saralash",
+    "overview":"Xulosa",
+    "ratings":"Reytinglar",
+    "gradeNow":"Hozir baho bering",
+    "productionCompanies":"Ishlab chiqaruvchi kompaniyalar",
+    "additionalDetails":"Qo'shimcha tafsilotlar",
+    "more":"ko'proq",
+    "likes":"ta yoqtirish",
+    "minutes":"daqiqa",
+    "english":"Ingliz tili",
+    "russian":"Rus tili",
+    "uzbek":"O'zbek tili",
+    "defaultOverview":"Ushbu film haqida xulosaviy ma'lumot yo'q",
+    "videoListIsEmpty":"Videolar ro'yxati bo'sh",
+    "videoLinkCopiedToClipboard":"Video havolasi vaqtinchalik xotiraga nusxalandi",
+    "videoNotFound":"Video Topilmadi",
+    "tryAgain":"Qayta urinish"
+
+}

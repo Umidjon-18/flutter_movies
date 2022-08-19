@@ -31,7 +31,7 @@ class MovieDetailHeader extends StatelessWidget {
         Container(
           padding: const EdgeInsets.only(top: 16.0),
           child: Text(
-            movie.originalTitle ?? "",
+            movie.title ?? "",
             style: textTheme.titleMedium!
                 .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -102,17 +102,32 @@ class MovieDetailHeader extends StatelessWidget {
                     Routes.youtubePage,
                     arguments: {
                       "movieId": movie.id.toString(),
-                      "movieName": movie.originalTitle,
+                      "movieName": movie.title,
                     },
                   );
                 },
-                child: const Padding(
-                  padding: EdgeInsets.only(bottom: 150.0, left: 30),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 150.0, left: 30),
                   child: Center(
-                    child: Icon(
-                      Icons.play_circle_outline_outlined,
-                      color: Colors.black87,
-                      size: 50,
+                    child: Material(
+                      shadowColor: Colors.black,
+                      color: Colors.transparent,
+                      elevation: 100.0,
+                      child: Icon(
+                        Icons.play_arrow,
+                        shadows: [
+                          Shadow(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              blurRadius: 50),
+                          Shadow(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              blurRadius: 50),
+                          Shadow(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              blurRadius: 50),
+                        ],
+                        size: 50,
+                      ),
                     ),
                   ),
                 ),

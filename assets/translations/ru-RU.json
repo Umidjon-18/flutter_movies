@@ -1,0 +1,28 @@
+{
+    "appName":"Flutter Фильмы",
+    "searchHint":"Поиск фильмов...",
+    "nowPlaying":"Сейчас играет",
+    "upcoming":"Предстоящие",
+    "popular":"Популярный",
+    "sortByPopularity":"Сортировать по популярности",
+    "sortByRate":"Сортировать по рейтингу",
+    "sortByDate":"Сортировать по дате",
+    "sortByVote":"Сортировать по голосованию",
+    "overview":"Bыводы",
+    "ratings":"Рейтинги",
+    "gradeNow":"Оценить сейчас",
+    "productionCompanies":"Производственные компании",
+    "additionalDetails":"Дополнительные детали",
+    "more":"более",
+    "likes":"лайков",
+    "minutes":"минут",
+    "english":"Английский",
+    "russian":"Русский",
+    "uzbek":"Узбекский",
+    "defaultOverview":"Обзора этого фильма нет",
+    "videoListIsEmpty":"Список видео пуст",
+    "videoLinkCopiedToClipboard":"Ссылка на видео скопирована в буфер обмена",
+    "videoNotFound":"Видео не найдено",
+    "tryAgain":"Попробуйте"
+
+}

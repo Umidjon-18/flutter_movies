@@ -18,7 +18,7 @@ class Poster extends StatelessWidget {
     var width = posterRatio * height;
 
     return Material(
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(10),
       shadowColor: Colors.black,
       elevation: 25.0,
       child: CachedNetworkImage(

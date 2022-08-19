@@ -20,6 +20,8 @@ class NowPlayingGrid extends StatefulWidget {
 class _NowPlayingGridState extends State<NowPlayingGrid> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    Orientation screenOrientation = MediaQuery.of(context).orientation;
     return Consumer<NowPlayingViewModel>(
       builder: (BuildContext context, nowPlayingViewModel, Widget? child) {
         return RefreshIndicator(
@@ -39,6 +41,7 @@ class _NowPlayingGridState extends State<NowPlayingGrid> {
                       : 4,
               mainAxisSpacing: 5,
               crossAxisSpacing: 5,
+              childAspectRatio: 1 / 1.3,
             ),
             itemBuilder: (BuildContext _, int index) {
               final movie = widget.moviesList[index];
@@ -73,19 +76,21 @@ class _NowPlayingGridState extends State<NowPlayingGrid> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                          height: 60,
+                          height: screenOrientation == Orientation.landscape
+                              ? size.height * 0.15
+                              : size.width * 0.12,
                           padding: const EdgeInsets.all(5),
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Colors.black38,
-                                Colors.black38,
+                                Colors.black54,
+                                Colors.black54,
                               ],
                             ),
                           ),
                           child: Center(
                               child: Text(
-                            movie.originalTitle ?? "Undefined",
+                            movie.title ?? "Undefined",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
